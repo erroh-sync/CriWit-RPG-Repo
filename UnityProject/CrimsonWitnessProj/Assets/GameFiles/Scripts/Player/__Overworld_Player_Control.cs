@@ -53,8 +53,8 @@ public class __Overworld_Player_Control : MonoBehaviour {
         // Movement        
         float ControlX, ControlY;
         ControlX = Input.GetAxis("Horizontal"); ControlY = Input.GetAxis("Vertical");
-        if (ControlX > -0.5 && ControlX < 0.5) { ControlX = 0; } else { ControlX = Mathf.Sign(ControlX); }
-        if (ControlY > -0.5 && ControlY < 0.5) { ControlY = 0; } else { ControlY = Mathf.Sign(ControlY); }
+        if (ControlX > -0.5 && ControlX < 0.5) { ControlX = 0; } else { ControlX = Mathf.Abs(ControlX); }
+        if (ControlY > -0.5 && ControlY < 0.5) { ControlY = 0; } else { ControlY = Mathf.Abs(ControlY); }
         if (ControlX != 0 || ControlY != 0)
         {
             this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI + cameraRotation.y), 0)), turnSpeed * Time.deltaTime);
