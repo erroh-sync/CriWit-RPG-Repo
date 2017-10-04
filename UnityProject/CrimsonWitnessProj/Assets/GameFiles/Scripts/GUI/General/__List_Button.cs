@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class __List_Button : MonoBehaviour {
 
-    public Button btn;
+    [SerializeField]
+    private Button btn;
+    [SerializeField]
+    private Text t;
 
     public void setSelected()
     {
             btn.Select();
     }
 
-    public void setNameString(string newName)
+    public virtual void setNameString(string newName)
     {
-        btn.GetComponentInChildren<Text>().text = newName;
+        t.text = newName;
     }
 }

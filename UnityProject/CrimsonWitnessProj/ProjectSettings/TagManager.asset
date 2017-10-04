@@ -7,6 +7,7 @@ TagManager:
   - AttackHandle
   - Canvas
   - EventSystem
+  - CombatMenu
   layers:
   - Default
   - TransparentFX

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class __Combat_Attack_Script : MonoBehaviour {
 
-    enum TargetType { ett_Self, ett_Enemy, ett_Party, ett_AllEnemy, ett_AllParty, ett_Everyone, ett_RandomEnemies };
+    public enum TargetType { ett_Self, ett_Enemy, ett_Party, ett_AllEnemy, ett_AllParty, ett_Everyone, ett_RandomEnemies };
 
     [Header("UserTarget")]
     public GameObject User;

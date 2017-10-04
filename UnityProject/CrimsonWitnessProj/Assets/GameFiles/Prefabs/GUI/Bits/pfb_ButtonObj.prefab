@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 224262078033892672}
   - component: {fileID: 114396228483461708}
   m_Layer: 5
-  m_Name: ButtonOBJ
+  m_Name: pfb_ButtonObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 114438423633258184}
+  t: {fileID: 114718968312192396}
 --- !u!114 &114438423633258184
 MonoBehaviour:
   m_ObjectHideFlags: 1

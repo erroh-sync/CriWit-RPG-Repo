@@ -7,6 +7,8 @@ public class __Combat_Manager : MonoBehaviour {
 
     public enum CombatState { ecs_Init, ecs_Intro, ecs_Dialogue, ecs_Decision, ecs_Action, ecs_Resolution, ecs_Victory, ecs_PlayerDeath };
 
+    public enum ActionType { eat_Attack, eat_Skill, eat_Item, eat_Wait };
+
     // The current position in the combat we are at.
     private CombatState currentState = CombatState.ecs_Init;
 
@@ -40,6 +42,12 @@ public class __Combat_Manager : MonoBehaviour {
     [SerializeField]
     private float IntroSpeed = 0.6f;
 
+    [Header("Menu Prefabs")]
+
+    // The curve that the camera will follow when combat is entered.
+    [SerializeField]
+    private GameObject CombatMenu;
+
     [Header("Test Data")]
     public int PlayerID = 0;
     public int DanteID = 1;
@@ -60,6 +68,18 @@ public class __Combat_Manager : MonoBehaviour {
     // The current position along an animation curve we are at. 
     private float introCameraAnimationPosition = 0.0f;
 
+    // The current action type
+    [HideInInspector]
+    public ActionType action_Type = ActionType.eat_Wait;
+
+    // The index of the current skill/item
+    [HideInInspector]
+    public int action_Index = 0;
+
+    // The current target object
+    [HideInInspector]
+    public List<GameObject> action_Target = new List<GameObject>();
+
     // Awake
     void Awake()
     {
@@ -70,6 +90,14 @@ public class __Combat_Manager : MonoBehaviour {
         else if (Instance != this)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
         }
     }
 
@@ -97,8 +125,8 @@ public class __Combat_Manager : MonoBehaviour {
         }
 
         // Enemy Party
-        // TODO: Actually spawn the enemy party. For now just summon Dante from the devil may cry series
-        for (int i = 0; i < 1; i++)
+        // TODO: Actually spawn the enemy party. For now just summon 3 Dantes from the devil may cry serieses
+        for (int i = 0; i < 3; i++)
         {
             if (combatActorLookup.Length >= DanteID)
             {
@@ -187,15 +215,24 @@ public class __Combat_Manager : MonoBehaviour {
             case CombatState.ecs_Decision:
                 // TODO: Make it so this picks a skill based on actual stuff
                 turnFrames -= 1;
-                if ((allChars[turnIndex].GetComponent<__Combat_Actor_Script>().teamIndex == 0 && Input.GetKeyDown(KeyCode.Z)) || (allChars[turnIndex].GetComponent<__Combat_Actor_Script>().teamIndex == 1))
+                if (allChars[turnIndex].GetComponent<__Combat_Actor_Script>().teamIndex == 0)
                 {
-                    DoAttack(0, 0);
-                    advanceCombatState(CombatState.ecs_Action);
+                    if (!GameObject.FindGameObjectWithTag("CombatMenu"))
+                        Instantiate(CombatMenu, GameObject.FindGameObjectWithTag("Canvas").transform);
+                }else
+                {
+                    action_Type = ActionType.eat_Attack;
+                    action_Target.Clear();
+                    action_Target.Add(playerParty[Random.Range(0,playerParty.Count)]);
+
+                    DoAction();
                 }
 
-                if(GameObject.FindGameObjectWithTag("AttackHandle"))
+                if (GameObject.FindGameObjectWithTag("AttackHandle"))
                 {
                     advanceCombatState(CombatState.ecs_Action);
+                    if (GameObject.FindGameObjectWithTag("CombatMenu"))
+                        Destroy(GameObject.FindGameObjectWithTag("CombatMenu"));
                 }
                 break;
             case CombatState.ecs_Action:
@@ -225,15 +262,30 @@ public class __Combat_Manager : MonoBehaviour {
         }
     }
 
-    void DoAttack(int targetID, int AttackID)
+    public void DoAction()
     {
-        __Combat_Attack_Script atk = (Instantiate(skillLookup[AttackID], this.transform) as GameObject).GetComponent<__Combat_Attack_Script>();
-        atk.User = allChars[turnIndex];
+        __Combat_Attack_Script act = null;
+        switch (action_Type)
+        {
+            case ActionType.eat_Attack:
+                act = (Instantiate(skillLookup[action_Index], this.transform) as GameObject).GetComponent<__Combat_Attack_Script>();
+                break;
+            default:
+                break;
+        }
+        act.User = allChars[turnIndex];
+        act.Targets.AddRange(action_Target);
+    }
 
-        // TODO: Currently just make it Enemy, should be dependand on Player/Enemy selection and skill type.
-        if(allChars[turnIndex].GetComponent<__Combat_Actor_Script>().teamIndex == 0)
-            atk.Targets.Add(enemyParty[targetID]);
-        else
-            atk.Targets.Add(playerParty[(int)Random.Range(0, playerParty.Count)]);
+    // Char getters
+
+    public List<GameObject> GetEnemyParty()
+    {
+        return enemyParty;
+    }
+
+    public List<GameObject> GetPlayerParty()
+    {
+        return playerParty;
     }
 }

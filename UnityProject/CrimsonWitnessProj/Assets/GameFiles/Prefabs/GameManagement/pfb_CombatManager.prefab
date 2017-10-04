@@ -149,14 +149,14 @@ MonoBehaviour:
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.42822266
-      value: 0.08376464
+      time: 0.38078308
+      value: 0.07772216
       inSlope: 0.6033759
       outSlope: 0.6033759
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.6936929
-      value: 0.93877655
+      time: 0.56109405
+      value: 0.92267853
       inSlope: 0.43008396
       outSlope: 0.43008396
       tangentMode: 0
@@ -173,10 +173,14 @@ MonoBehaviour:
   IntroCamRotStart: {x: 0, y: 50, z: 0}
   IntroCamPosEnd: {x: 2.5, y: 3.7, z: -2.8}
   IntroCamRotEnd: {x: 18, y: -15, z: 0}
-  IntroSpeed: 0.56
+  IntroSpeed: 0.7
+  CombatMenu: {fileID: 1976172008961790, guid: 733615999200ed8468d4a63c1f668aea, type: 2}
   PlayerID: 0
   DanteID: 1
   turnFrames: 20
+  action_Type: 3
+  action_Index: 0
+  action_Target: []
 --- !u!124 &124704101432767086
 Behaviour:
   m_ObjectHideFlags: 1
