@@ -135,6 +135,8 @@ public class __Combat_Manager : MonoBehaviour {
             }
         }
 
+        FindObjectOfType<__Combat_Quick_Stats_Manager>().Init();
+
         sortPartyByAgility();
 
         // Move to the next state;

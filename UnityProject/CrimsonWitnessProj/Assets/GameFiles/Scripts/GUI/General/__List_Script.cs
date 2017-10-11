@@ -30,7 +30,6 @@ public class __List_Script : MonoBehaviour {
     {
         myFunctionality = this.gameObject.GetComponent<__List_Functionality>();
         Init();
-        spawnedButtons[position - currentTop].GetComponent<__List_Button>().setSelected();
         enabled = activeOnStart;
     }
 
@@ -38,6 +37,7 @@ public class __List_Script : MonoBehaviour {
     {
         timer -= Time.deltaTime;
 
+        spawnedButtons[position - currentTop].GetComponent<__List_Button>().setSelected();
         Control();
     }
 
@@ -99,8 +99,6 @@ public class __List_Script : MonoBehaviour {
                 currentTop = position;
                 SetButtonNames();
             }
-
-            spawnedButtons[position - currentTop].GetComponent<__List_Button>().setSelected();
             
             timer = intervalTime;
         }

@@ -6,7 +6,9 @@ public class __Combat_Actor_Script : MonoBehaviour {
 
     [Header ("DeterministicStats")]
     [SerializeField]
-    private float baseAgi = 10.0f;
+    private int level = 1;
+    private float baseEn = 10.0f;
+    private float baseAg = 10.0f;
 
     [Header("DisplayInfo")]
     [SerializeField]
@@ -16,8 +18,11 @@ public class __Combat_Actor_Script : MonoBehaviour {
     [SerializeField]
     private Animation anim;
 
+    // Runtime Stats // 
+    private float currentHP;
+
     // Buff/Debuffs
-    private float AgiBuff = 0.0f;
+    private float AgBuff = 0.0f;
 
     // Misc
     public int teamIndex = 0; // 0 = Player, 1 = Enemy
@@ -27,11 +32,21 @@ public class __Combat_Actor_Script : MonoBehaviour {
     {
         Home = this.transform.position;
         setPosToHome();
+
+        // Set Runtime Stats
+        currentHP = getHP(); // TODO: Load player character's HP and MP from the player's data instead. Be sure to save it out at the end too!
+        // TODO: MP Too
     }
 
-    public float getAgi()
+    /*  Stat Getters  */
+    public float getHP()
     {
-        return baseAgi * AgiBuff;
+        return (level + baseEn) * 6;
+    }
+
+    public float getAg()
+    {
+        return baseAg * AgBuff;
     }
 
     // Gets the cam offset
