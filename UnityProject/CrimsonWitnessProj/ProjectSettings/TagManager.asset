@@ -8,6 +8,7 @@ TagManager:
   - Canvas
   - EventSystem
   - CombatMenu
+  - CameraRig
   layers:
   - Default
   - TransparentFX

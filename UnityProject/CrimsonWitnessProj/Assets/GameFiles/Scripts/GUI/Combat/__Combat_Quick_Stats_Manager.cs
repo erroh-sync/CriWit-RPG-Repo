@@ -12,6 +12,8 @@ public class __Combat_Quick_Stats_Manager : MonoBehaviour {
 
     private int currentNum = 0;
 
+    private List<GameObject> playerparty;
+
     public void Init()
     {
         StartCoroutine("C_Init");
@@ -19,12 +21,12 @@ public class __Combat_Quick_Stats_Manager : MonoBehaviour {
 
     IEnumerator C_Init()
     {
-        List<GameObject> playerparty = __Combat_Manager.Instance.GetPlayerParty();
+        playerparty = __Combat_Manager.Instance.GetPlayerParty();
 
         for (int i = 0; i < playerparty.Count; i++)
         {
+            yield return new WaitForSeconds(0.35f);
             SpawnPanel(i);
-            yield return new WaitForSeconds(0.65f);
         }
     }
 
@@ -34,8 +36,8 @@ public class __Combat_Quick_Stats_Manager : MonoBehaviour {
         //List<GameObject> playerparty = __Combat_Manager.Instance.GetPlayerParty();
         
         GameObject panel = Instantiate(panelItem, this.transform) as GameObject;
-        panel.transform.position -= new Vector3(225 * partyPosition, 0, 0);
+        panel.transform.position -= new Vector3(224 * partyPosition, 0, 0);
 
-        panel.GetComponent<__Combat_Quick_Stats_Controller>().
+        panel.GetComponent<__Combat_Quick_Stats_Controller>().AssignCharacterReference(playerparty[partyPosition].GetComponent<__Combat_Actor_Script>());
     }
 }

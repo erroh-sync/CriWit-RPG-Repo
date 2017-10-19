@@ -2,8 +2,9 @@
 {
 	Properties
 	{
-		_MainTex ("Texture", 2D) = "white" {}
-		_BufferTex ("Texture", 2D) = "white" {}
+		_MainTex ("_MainTexture", 2D) = "white" {}
+		_BufferTex ("_BufferTexture", 2D) = "white" {}
+		_BlurFactor("_BlurFactor", float) = 0.35
 	}
 	SubShader
 	{
@@ -40,12 +41,13 @@
 			
 			sampler2D _MainTex;
 			sampler2D _BufferTex;
+			float _BlurFactor;
 
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
 				fixed4 bufcol = tex2D(_BufferTex, i.uv);
-				return lerp(col,bufcol,0.35);
+				return lerp(col,bufcol, _BlurFactor);
 			}
 			ENDCG
 		}

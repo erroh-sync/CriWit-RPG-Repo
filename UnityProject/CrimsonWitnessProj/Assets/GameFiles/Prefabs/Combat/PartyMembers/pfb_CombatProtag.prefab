@@ -1818,6 +1818,7 @@ Animation:
   - {fileID: 7400000, guid: bb2a5cd87864fbb4ebb81e68ed897253, type: 2}
   - {fileID: 7400000, guid: 99db5b2ed1d268248834a54744e66830, type: 2}
   - {fileID: 7400000, guid: b36d83065a6039c4fadf6ebea19cc57f, type: 2}
+  - {fileID: 7400000, guid: 38f942c097ca95f4188ee5e2402aeddc, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -1833,7 +1834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10216e921c8571245969c7fd3b0c3ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAgi: 10
+  level: 1
   cameraOffset: {x: 0, y: 1.8, z: -2.6}
   anim: {fileID: 111831778520846160}
   teamIndex: 0

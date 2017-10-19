@@ -13,7 +13,7 @@ Prefab:
   m_IsPrefabParent: 1
 --- !u!1 &1480470862010440
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 92713277129654516}
   - component: {fileID: 81980710500125628}
   - component: {fileID: 114075855978853182}
+  - component: {fileID: 111826654010417316}
   m_Layer: 0
   m_Name: CombatCamera
   m_TagString: MainCamera
@@ -47,19 +48,48 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1916253763742134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4040452981348810}
+  m_Layer: 0
+  m_Name: CameraRig
+  m_TagString: CameraRig
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4040452981348810
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1916253763742134}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4156000980702494}
+  m_Father: {fileID: 4959016066091290}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4156000980702494
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1480470862010440}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4959016066091290}
+  m_Father: {fileID: 4040452981348810}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.2439942, y: 234.44656, z: -0.19014019}
 --- !u!4 &4959016066091290
 Transform:
   m_ObjectHideFlags: 1
@@ -70,7 +100,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4156000980702494}
+  - {fileID: 4040452981348810}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -124,6 +154,23 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1480470862010440}
   m_Enabled: 1
+--- !u!111 &111826654010417316
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480470862010440}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 1081af57b736de6449d409cccc8817c4, type: 2}
+  - {fileID: 7400000, guid: 51570955ef648274da2ba68d146c0467, type: 2}
+  - {fileID: 7400000, guid: 62f7841ed2042294ab8e83692b371da8, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114075855978853182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motionBlurMat: {fileID: 2100000, guid: 2456e3f0fa30cca45a304c3e9f950e63, type: 2}
   motionBlurPercentage: 0.15
+  anim: {fileID: 111826654010417316}
 --- !u!114 &114700436210192454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -153,41 +201,7 @@ MonoBehaviour:
   - {fileID: 1666597619868480, guid: 2a31380b025d064418c770f026449dd4, type: 2}
   skillLookup:
   - {fileID: 1845444785939798, guid: bd401504a424a7a47a6401f8326b9110, type: 2}
-  IntroCamAnim:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.38078308
-      value: 0.07772216
-      inSlope: 0.6033759
-      outSlope: 0.6033759
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 0.56109405
-      value: 0.92267853
-      inSlope: 0.43008396
-      outSlope: 0.43008396
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  IntroCamPosStart: {x: -7.5, y: 0.8, z: 2.5}
-  IntroCamRotStart: {x: 0, y: 50, z: 0}
-  IntroCamPosEnd: {x: 2.5, y: 3.7, z: -2.8}
-  IntroCamRotEnd: {x: 18, y: -15, z: 0}
-  IntroSpeed: 0.7
+  IntroCamAnim: CamAnim_CombatEntry_01
   CombatMenu: {fileID: 1976172008961790, guid: 733615999200ed8468d4a63c1f668aea, type: 2}
   PlayerID: 0
   DanteID: 1

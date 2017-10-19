@@ -25,22 +25,10 @@ public class __Combat_Manager : MonoBehaviour {
     private GameObject[] skillLookup = new GameObject[0];
 
     [Header("Camera Animation")]
-
-    // The curve that the camera will follow when combat is entered.
+     
+    // The animation that the camera will follow on entry to the battle.
     [SerializeField]
-    private AnimationCurve IntroCamAnim;
-    // The start point during the intro animation 
-    [SerializeField]
-    private Vector3 IntroCamPosStart;
-    [SerializeField]
-    private Vector3 IntroCamRotStart;
-    // The end point during the intro animation 
-    [SerializeField]
-    private Vector3 IntroCamPosEnd;
-    [SerializeField]
-    private Vector3 IntroCamRotEnd;
-    [SerializeField]
-    private float IntroSpeed = 0.6f;
+    private string IntroCamAnim = "intro";
 
     [Header("Menu Prefabs")]
 
@@ -64,9 +52,6 @@ public class __Combat_Manager : MonoBehaviour {
 
     // Denotes who's turn it is
     private int turnIndex = 0;
-
-    // The current position along an animation curve we are at. 
-    private float introCameraAnimationPosition = 0.0f;
 
     // The current action type
     [HideInInspector]
@@ -126,11 +111,11 @@ public class __Combat_Manager : MonoBehaviour {
 
         // Enemy Party
         // TODO: Actually spawn the enemy party. For now just summon 3 Dantes from the devil may cry serieses
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (combatActorLookup.Length >= DanteID)
             {
-                enemyParty.Add(Instantiate(combatActorLookup[DanteID], this.transform.position + new Vector3(0.0f + (2.5f * i), 0, 5.0f), Quaternion.Euler(0, 180, 0)) as GameObject);
+                enemyParty.Add(Instantiate(combatActorLookup[DanteID], this.transform.position + new Vector3(-5.0f + (2.5f * i), 0, 5.0f), Quaternion.Euler(0, 180, 0)) as GameObject);
                 enemyParty[i].GetComponent<__Combat_Actor_Script>().teamIndex = 1;
             }
         }
@@ -166,17 +151,18 @@ public class __Combat_Manager : MonoBehaviour {
         switch (newState)
         {
             case CombatState.ecs_Intro:
-                introCameraAnimationPosition = 0.0f;
+                __Camera_Effects_Controller.Instance.CamPlayAnim(IntroCamAnim);
+                StartCoroutine("C_IntroDelay");
                 break;
             case CombatState.ecs_Dialogue:
                 break;
             case CombatState.ecs_Decision:
                 if (allChars[turnIndex].GetComponent<__Combat_Actor_Script>().teamIndex == 0)
                 {
-                    Camera.main.transform.position = allChars[turnIndex].transform.position + (allChars[turnIndex].transform.rotation * allChars[turnIndex].GetComponent<__Combat_Actor_Script>().getCamOffset());
-                    Camera.main.transform.rotation = allChars[turnIndex].transform.rotation;
+                    __Camera_Effects_Controller.Instance.CamPlayAnim("CamAnim_Decision");
+                    GameObject.FindGameObjectWithTag("CameraRig").transform.position = allChars[turnIndex].transform.position;
+                    GameObject.FindGameObjectWithTag("CameraRig").transform.rotation = allChars[turnIndex].transform.rotation;
                 }
-
                 foreach (GameObject go in allChars)
                 {
                     go.GetComponent<__Combat_Actor_Script>().setPosToHome();
@@ -195,20 +181,18 @@ public class __Combat_Manager : MonoBehaviour {
         currentState = newState;
     }
 
+    IEnumerator C_IntroDelay()
+    {
+        yield return new WaitForSeconds(1.4f);
+        advanceCombatState(CombatState.ecs_Dialogue);
+    }
+
     // Runs every frame to adjust stuff based on our current Combat State
     void stepCombatState()
     {
         switch (currentState)
         {
             case CombatState.ecs_Intro:
-                // Update Camera movement
-                introCameraAnimationPosition += Time.deltaTime * IntroSpeed;
-
-                Camera.main.transform.position = Vector3.Lerp(IntroCamPosStart, IntroCamPosEnd, IntroCamAnim.Evaluate(introCameraAnimationPosition));
-                Camera.main.transform.rotation = Quaternion.Lerp(Quaternion.Euler(IntroCamRotStart), Quaternion.Euler(IntroCamRotEnd), IntroCamAnim.Evaluate(introCameraAnimationPosition));
-
-                if(introCameraAnimationPosition >= 1.0f)
-                    advanceCombatState(CombatState.ecs_Dialogue);
                 break;
             case CombatState.ecs_Dialogue:
                 // TODO: Some stuff here but for now fuck it off
@@ -238,7 +222,7 @@ public class __Combat_Manager : MonoBehaviour {
                 }
                 break;
             case CombatState.ecs_Action:
-                // TODO: This might actually be all this state has to do besides Camera work
+                // TODO: This might actually be all this state has to do
                 if (!GameObject.FindGameObjectWithTag("AttackHandle"))
                 {
                     advanceCombatState(CombatState.ecs_Resolution);
@@ -259,6 +243,7 @@ public class __Combat_Manager : MonoBehaviour {
             case CombatState.ecs_Victory:
                 break;
             case CombatState.ecs_PlayerDeath:
+                OnPlayerDeath();
                 break;
             default: break;
         }
@@ -280,7 +265,6 @@ public class __Combat_Manager : MonoBehaviour {
     }
 
     // Char getters
-
     public List<GameObject> GetEnemyParty()
     {
         return enemyParty;
@@ -289,5 +273,37 @@ public class __Combat_Manager : MonoBehaviour {
     public List<GameObject> GetPlayerParty()
     {
         return playerParty;
+    }
+
+    // Char remover
+    public void RemoveCharFromArray(GameObject actorToRemove, int TeamIndex)
+    {
+        if(TeamIndex == 0)
+            playerParty.Remove(actorToRemove);
+        else
+            enemyParty.Remove(actorToRemove);
+
+        allChars.Remove(actorToRemove);
+
+        if(playerParty.Count == 0)
+        {
+            advanceCombatState(CombatState.ecs_PlayerDeath);
+        }
+    }
+
+    void OnPlayerDeath()
+    {
+        StartCoroutine("C_OnPlayerDeath");
+    }
+
+    IEnumerator C_OnPlayerDeath()
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            __Camera_Effects_Controller.Instance.PlayerDeathFadeStep();
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        SceneManager.LoadScene(0);
     }
 }

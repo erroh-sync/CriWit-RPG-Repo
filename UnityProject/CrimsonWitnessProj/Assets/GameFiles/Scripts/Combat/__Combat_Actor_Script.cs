@@ -34,19 +34,47 @@ public class __Combat_Actor_Script : MonoBehaviour {
         setPosToHome();
 
         // Set Runtime Stats
-        currentHP = getHP(); // TODO: Load player character's HP and MP from the player's data instead. Be sure to save it out at the end too!
+        currentHP = getBaseHP(); // TODO: Load player character's HP and MP from the player's data instead. Be sure to save it out at the end too!
         // TODO: MP Too
     }
 
     /*  Stat Getters  */
-    public float getHP()
+    public float getBaseHP()
     {
         return (level + baseEn) * 6;
+    }
+
+    public float getCurrentHP()
+    {
+        return currentHP;
     }
 
     public float getAg()
     {
         return baseAg * AgBuff;
+    }
+
+    /* Stat Alterations */
+    public void adjustHP(float amnt)
+    {
+        currentHP -= amnt;
+
+        if (currentHP > getBaseHP())
+            currentHP = getBaseHP();
+        else if (currentHP <= 0)
+            OnDeath();
+    }
+
+    // Called when HP reaches 0
+    public void OnDeath()
+    {
+        currentHP = 0;
+        playAnim("Death");
+
+        // Remove from Array
+        __Combat_Manager.Instance.RemoveCharFromArray(this.gameObject, teamIndex);
+
+        // Destroy if it's an enemy
     }
 
     // Gets the cam offset

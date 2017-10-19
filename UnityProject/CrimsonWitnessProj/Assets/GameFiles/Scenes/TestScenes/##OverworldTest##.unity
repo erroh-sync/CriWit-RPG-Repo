@@ -480,25 +480,6 @@ Transform:
   m_Father: {fileID: 866854653}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &84663187 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1293942133930858, guid: aed10be4c4eb448469e39348c6dabde6,
-    type: 2}
-  m_PrefabInternal: {fileID: 722390922}
---- !u!114 &84663193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 84663187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8390505a15f32e4585d95d112f52809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  motionBlurMat: {fileID: 2100000, guid: 2456e3f0fa30cca45a304c3e9f950e63, type: 2}
-  motionBlurPercentage: 0.1
-  screenBuffer: {fileID: 8400000, guid: e97f80b931fc3ad449c0bc5f64796830, type: 2}
 --- !u!1 &230354136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,16 +1417,6 @@ Prefab:
     - target: {fileID: 4819507707084638, guid: aed10be4c4eb448469e39348c6dabde6, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20324632180577802, guid: aed10be4c4eb448469e39348c6dabde6,
-        type: 2}
-      propertyPath: m_HDR
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20324632180577802, guid: aed10be4c4eb448469e39348c6dabde6,
-        type: 2}
-      propertyPath: m_TargetTexture
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aed10be4c4eb448469e39348c6dabde6, type: 2}
