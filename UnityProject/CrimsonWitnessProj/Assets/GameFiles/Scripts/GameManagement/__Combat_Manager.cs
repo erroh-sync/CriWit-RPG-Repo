@@ -210,6 +210,7 @@ public class __Combat_Manager : MonoBehaviour {
                     action_Type = ActionType.eat_Attack;
                     action_Target.Clear();
                     action_Target.Add(playerParty[Random.Range(0,playerParty.Count)]);
+                    action_Index = 0; // TODO: Replace this with a function in the enemy code that determines the attack to use.
 
                     DoAction();
                 }
@@ -255,6 +256,9 @@ public class __Combat_Manager : MonoBehaviour {
         switch (action_Type)
         {
             case ActionType.eat_Attack:
+                act = (Instantiate(skillLookup[0], this.transform) as GameObject).GetComponent<__Combat_Attack_Script>();
+                break;
+            case ActionType.eat_Skill:
                 act = (Instantiate(skillLookup[action_Index], this.transform) as GameObject).GetComponent<__Combat_Attack_Script>();
                 break;
             default:
@@ -306,4 +310,15 @@ public class __Combat_Manager : MonoBehaviour {
 
         SceneManager.LoadScene(0);
     }
+
+    public GameObject getCurrentTurnUser()
+    {
+        return allChars[turnIndex];
+    }
+
+    // Skill Interface
+    public string getSkillName(int index)
+    {
+        return skillLookup[index].GetComponent<__Combat_Attack_Script>().skillName;
+    } 
 }

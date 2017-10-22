@@ -38,6 +38,7 @@ public class __Combat_Targetting : MonoBehaviour {
         {
             case __Combat_Manager.ActionType.eat_Skill:
                 // TODO: Look up the target type of the skill being used.
+                init(__Combat_Attack_Script.TargetType.ett_Enemy);
                 break;
             default:
                 init(__Combat_Attack_Script.TargetType.ett_Enemy);

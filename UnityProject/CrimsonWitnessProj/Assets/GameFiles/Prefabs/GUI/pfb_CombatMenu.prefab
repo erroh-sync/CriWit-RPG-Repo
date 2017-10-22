@@ -636,6 +636,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224102407502542100}
+  - component: {fileID: 225705598327451944}
   m_Layer: 5
   m_Name: Parent
   m_TagString: Untagged
@@ -1922,11 +1923,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   names:
   - One
-  - Two
-  - Three
-  - Fic
-  - Three
-  - Meme
   visibleButtonCount: 4
   buttonPrefab: {fileID: 0}
   speration: 32
@@ -1949,6 +1945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CommandMenu: {fileID: 114471844056228736}
+  TargMenu: {fileID: 114080236262820172}
 --- !u!114 &114840888934724088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3200,6 +3197,17 @@ CanvasGroup:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1489413683387038}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &225705598327451944
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962387198062224}
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1

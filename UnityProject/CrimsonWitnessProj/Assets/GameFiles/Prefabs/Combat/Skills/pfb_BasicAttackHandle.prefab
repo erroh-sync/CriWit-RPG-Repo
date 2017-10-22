@@ -53,9 +53,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   User: {fileID: 0}
   Targets: []
-  baseDamage: 1
+  skillName: SKILL_NAME
+  baseDamage: 20
   myTargetType: 1
-  totalDuration: 1
-  effectTime: 0.5
+  MultiTargetInterval: 0.2
+  MultiHitCount: 1
+  MultiHitInterval: 0.2
+  UseMagicStat: 0
+  totalDuration: 2
+  effectTime: 1
   userMoveSpeed: 18
   StopDistance: 1
+  ImpactEffect: {fileID: 1341047806988296, guid: 8c4162565b8bccb4db502729ce36ef4a,
+    type: 2}
+  animationName: Attack

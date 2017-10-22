@@ -7,8 +7,25 @@ public class __Combat_Actor_Script : MonoBehaviour {
     [Header ("DeterministicStats")]
     [SerializeField]
     private int level = 1;
-    private float baseEn = 10.0f;
-    private float baseAg = 10.0f;
+
+    [Tooltip ("Stat at level 100")]
+    [SerializeField]
+    private int maxEn = 250;
+    [Tooltip("Stat at level 100")]
+    [SerializeField]
+    private int maxSt = 250;
+    [Tooltip("Stat at level 100")]
+    [SerializeField]
+    private int maxMa = 250;
+    [Tooltip("Stat at level 100")]
+    [SerializeField]
+    private int maxAg = 250;
+    [Tooltip("Stat at level 100")]
+    [SerializeField]
+    private int maxLu = 250;
+    [Tooltip("Skills known by this character")]
+    [SerializeField]
+    private List<int> skillSet = new List<int>();
 
     [Header("DisplayInfo")]
     [SerializeField]
@@ -22,7 +39,10 @@ public class __Combat_Actor_Script : MonoBehaviour {
     private float currentHP;
 
     // Buff/Debuffs
-    private float AgBuff = 0.0f;
+    private float AgilityBuff = 0.0f;
+    private float AttackBuff = 0.0f;
+    private float DefenceBuff = 0.0f;
+    private float MagicBuff = 0.0f;
 
     // Misc
     public int teamIndex = 0; // 0 = Player, 1 = Enemy
@@ -34,14 +54,14 @@ public class __Combat_Actor_Script : MonoBehaviour {
         setPosToHome();
 
         // Set Runtime Stats
-        currentHP = getBaseHP(); // TODO: Load player character's HP and MP from the player's data instead. Be sure to save it out at the end too!
+        currentHP = getMaxHP(); // TODO: Load player character's HP and MP from the player's data instead. Be sure to save it out at the end too!
         // TODO: MP Too
     }
 
     /*  Stat Getters  */
-    public float getBaseHP()
+    public float getMaxHP()
     {
-        return (level + baseEn) * 6;
+        return ((float)maxEn * ((float)level/100.0f)) * 6;
     }
 
     public float getCurrentHP()
@@ -49,9 +69,24 @@ public class __Combat_Actor_Script : MonoBehaviour {
         return currentHP;
     }
 
-    public float getAg()
+    public float getAgility()
     {
-        return baseAg * AgBuff;
+        return ((float)maxAg * ((float)level / 100.0f)) * AgilityBuff;
+    }
+
+    public float getAttack()
+    {
+        return ((float)maxSt * ((float)level / 100.0f)) * AttackBuff;
+    }
+
+    public float getDefence()
+    {
+        return ((float)maxEn * ((float)level / 100.0f)) * DefenceBuff;
+    }
+
+    public float getMagic()
+    {
+        return ((float)maxMa * ((float)level / 100.0f)) * MagicBuff;
     }
 
     /* Stat Alterations */
@@ -59,8 +94,8 @@ public class __Combat_Actor_Script : MonoBehaviour {
     {
         currentHP -= amnt;
 
-        if (currentHP > getBaseHP())
-            currentHP = getBaseHP();
+        if (currentHP > getMaxHP())
+            currentHP = getMaxHP();
         else if (currentHP <= 0)
             OnDeath();
     }
@@ -94,5 +129,15 @@ public class __Combat_Actor_Script : MonoBehaviour {
     {
         this.transform.position = Home;
         anim.Play("Idle");
+    }
+
+    // Get Skill List
+    public int getSkillAtIndex(int index)
+    {
+        if (index >= skillSet.Count)
+        {
+            return -1;
+        }
+        return skillSet[index];
     }
 }

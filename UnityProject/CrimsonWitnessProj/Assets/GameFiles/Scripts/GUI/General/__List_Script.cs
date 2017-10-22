@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class __List_Script : MonoBehaviour {
-    [SerializeField]
-    private string[] names = new string[8];
+    public string[] names = new string[8];
     [SerializeField]
     protected int visibleButtonCount = 4;
     [SerializeField]
@@ -57,7 +56,7 @@ public class __List_Script : MonoBehaviour {
         SetButtonNames();
     }
 
-    protected void SetButtonNames()
+    public void SetButtonNames()
     {
         for (int i = 0; i < visibleButtonCount; i++)
         {
@@ -115,5 +114,10 @@ public class __List_Script : MonoBehaviour {
         {
             myFunctionality.OnListBack(position);
         }
+    }
+
+    public int getPosition()
+    {
+        return position;
     }
 }

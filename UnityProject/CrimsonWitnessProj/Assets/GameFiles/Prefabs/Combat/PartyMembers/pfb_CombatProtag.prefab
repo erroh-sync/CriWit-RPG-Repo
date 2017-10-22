@@ -1835,6 +1835,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  maxEn: 250
+  maxSt: 250
+  maxMa: 250
+  maxAg: 250
+  maxLu: 250
+  skillSet: 0000000001000000
   cameraOffset: {x: 0, y: 1.8, z: -2.6}
   anim: {fileID: 111831778520846160}
   teamIndex: 0

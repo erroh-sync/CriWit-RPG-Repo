@@ -10,13 +10,14 @@ public class __Attack_BasicAttack_Base : __Combat_Attack_Script
     [SerializeField]
     private float StopDistance = 1.0f;
 
+    [Header("Effects Properties")]
+    [SerializeField]
+    private GameObject ImpactEffect;
+
     private Vector3 targetLocation;
 
     [SerializeField]
-    private float TEMP_FIXEDDAMAGE = 50.0f;
-
-    [SerializeField]
-    private string animationName = "Attack";
+    protected string animationName = "Attack";
 
     protected override void OnStart()
     {
@@ -40,8 +41,10 @@ public class __Attack_BasicAttack_Base : __Combat_Attack_Script
     protected override void OnCauseEffect(__Combat_Actor_Script targetactor)
     {
         // Here is where the result of the attack will go. Healing, damage, etc.
-        Targets[0].GetComponent<__Combat_Actor_Script>().playAnim("Damage");
+        targetactor.playAnim("Damage");
 
-        Targets[0].GetComponent<__Combat_Actor_Script>().adjustHP(TEMP_FIXEDDAMAGE);
+        targetactor.adjustHP(CalculateDamage(targetactor));
+
+        Instantiate(ImpactEffect, targetactor.transform.position, ImpactEffect.transform.rotation);
     }
 }

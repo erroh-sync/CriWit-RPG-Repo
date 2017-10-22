@@ -89,7 +89,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4040452981348810}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -2.2439942, y: 234.44656, z: -0.19014019}
+  m_LocalEulerAnglesHint: {x: -2.664, y: 16.945002, z: 0}
 --- !u!4 &4959016066091290
 Transform:
   m_ObjectHideFlags: 1
@@ -201,6 +201,7 @@ MonoBehaviour:
   - {fileID: 1666597619868480, guid: 2a31380b025d064418c770f026449dd4, type: 2}
   skillLookup:
   - {fileID: 1845444785939798, guid: bd401504a424a7a47a6401f8326b9110, type: 2}
+  - {fileID: 1079392246225298, guid: 92fd32d08681d084882e9d3148957153, type: 2}
   IntroCamAnim: CamAnim_CombatEntry_01
   CombatMenu: {fileID: 1976172008961790, guid: 733615999200ed8468d4a63c1f668aea, type: 2}
   PlayerID: 0
