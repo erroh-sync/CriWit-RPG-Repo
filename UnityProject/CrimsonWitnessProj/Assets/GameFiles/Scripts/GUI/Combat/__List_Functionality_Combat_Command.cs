@@ -23,6 +23,9 @@ public class __List_Functionality_Combat_Command : __List_Functionality {
                 this.gameObject.GetComponent<__List_Script>().enabled = false;
                 SkillMenu.enabled = true;
                 break;
+            case 5:
+                __Combat_Manager.Instance.SkipTurn();
+                break;
             default:
                 break;
         }

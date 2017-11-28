@@ -44,10 +44,12 @@
 			float _BlurFactor;
 
 			fixed4 frag (v2f i) : SV_Target
-			{
+			{ 
 				fixed4 col = tex2D(_MainTex, i.uv);
 				fixed4 bufcol = tex2D(_BufferTex, i.uv);
-				return lerp(col,bufcol, _BlurFactor);
+
+				//return col + (bufcol * _BlurFactor * 0.15);
+				return lerp(col,bufcol, _BlurFactor) + (_BlurFactor * 0.08);
 			}
 			ENDCG
 		}

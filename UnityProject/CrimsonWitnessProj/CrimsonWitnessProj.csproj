@@ -78,11 +78,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\__Camera_Effects_Controller.cs" />
-    <Compile Include="Assets\__Effect_Kill_Timer.cs" />
+    <Compile Include="Assets\GameFiles\Scripts\Camera\__Camera_Effects_Controller.cs" />
     <Compile Include="Assets\GameFiles\Scripts\Camera\__Overworld_Follow_Cam.cs" />
     <Compile Include="Assets\GameFiles\Scripts\Combat\__Combat_Actor_Script.cs" />
     <Compile Include="Assets\GameFiles\Scripts\Combat\__Combat_Attack_Script.cs" />
+    <Compile Include="Assets\GameFiles\Scripts\Combat\__Stored_Enemy_Party.cs" />
     <Compile Include="Assets\GameFiles\Scripts\Combat\AttackSubclasses\__Attack_BasicAttack_Base.cs" />
     <Compile Include="Assets\GameFiles\Scripts\GameManagement\__Combat_Manager.cs" />
     <Compile Include="Assets\GameFiles\Scripts\GameManagement\__Game_Manager.cs" />
@@ -97,14 +97,16 @@
     <Compile Include="Assets\GameFiles\Scripts\GUI\General\__List_Functionality.cs" />
     <Compile Include="Assets\GameFiles\Scripts\GUI\General\__List_Script.cs" />
     <Compile Include="Assets\GameFiles\Scripts\GUI\General\__List_Script_PreInst.cs" />
+    <Compile Include="Assets\GameFiles\Scripts\Misc\__Effect_Kill_Timer.cs" />
     <Compile Include="Assets\GameFiles\Scripts\Player\__Overworld_Player_Control.cs" />
     <Compile Include="Assets\GameFiles\Scripts\Triggers\__Encounter_Volume.cs" />
     <Compile Include="Assets\GameFiles\Scripts\Triggers\__Trigger_Volume.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\3rdParty\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
+    <None Include="Assets\3rdParty\UETools\Readme.txt" />
     <None Include="Assets\GameFiles\Shaders\Camera\__Motion_Blur_Shad.shader" />
     <None Include="Assets\GameFiles\Shaders\GUI\__UI_Quick_Stats_Bar_Shad.shader" />
-    <None Include="Assets\UETools\Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

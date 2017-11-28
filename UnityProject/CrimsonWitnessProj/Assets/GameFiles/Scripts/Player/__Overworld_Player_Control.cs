@@ -28,6 +28,14 @@ public class __Overworld_Player_Control : MonoBehaviour {
     [Tooltip("How many unity units will the player move in a second.")]
     private float moveSpeed = 2.0f;
 
+    [Header("Display Settings")]
+
+    [SerializeField]
+    [Tooltip("The character's mesh.")]
+    private GameObject characterMesh;
+
+    public bool Stopped = false;
+
     // The Camera's current Yaw value.
     private Vector3 cameraRotation = new Vector3(0,0,0);
 
@@ -35,7 +43,7 @@ public class __Overworld_Player_Control : MonoBehaviour {
     private Rigidbody rb;
 
     // Called on create for initialization
-    void Start()
+    void Start()   
     {
         rb = this.GetComponent<Rigidbody>();
         this.transform.position = __Game_Manager.Instance.playerStoredPosition;
@@ -45,27 +53,32 @@ public class __Overworld_Player_Control : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        Control();
-    }
+        if(!Stopped)
+            Control();
+    } 
 
     private void Control()
     {
         // Movement        
         float ControlX, ControlY;
         ControlX = Input.GetAxis("Horizontal"); ControlY = Input.GetAxis("Vertical");
-        if (ControlX > -0.5 && ControlX < 0.5) { ControlX = 0; } else { ControlX = Mathf.Abs(ControlX); }
-        if (ControlY > -0.5 && ControlY < 0.5) { ControlY = 0; } else { ControlY = Mathf.Abs(ControlY); }
+        if (ControlX > -0.5 && ControlX < 0.5) { ControlX = 0; } else { ControlX = Mathf.Sign(ControlX); }
+        if (ControlY > -0.5 && ControlY < 0.5) { ControlY = 0; } else { ControlY = Mathf.Sign(ControlY); }
         if (ControlX != 0 || ControlY != 0)
         {
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(new Vector3(0, (Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI + cameraRotation.y), 0)), turnSpeed * Time.deltaTime);
+            this.transform.rotation = Quaternion.Euler(new Vector3(0, (Mathf.Atan2(ControlX, ControlY) * 180 / Mathf.PI + cameraRotation.y), 0));
             rb.MovePosition(this.transform.position + (this.transform.forward * moveSpeed * Time.deltaTime));
         }
+
+        // Mesh update
+        characterMesh.transform.position = this.transform.position;
+        characterMesh.transform.rotation = Quaternion.Lerp(characterMesh.transform.rotation, this.transform.rotation, turnSpeed * Time.deltaTime);
 
         // Camera Rotation
         float LookX, LookY;
         LookX = (Input.GetAxis("Mouse X") * 1.2f) + Input.GetAxis("JoyLook X"); LookY = (-Input.GetAxis("Mouse Y") * 1.2f) + Input.GetAxis("JoyLook Y");
-        if (LookX > -0.5 && LookX < 0.5) { LookX = 0; }// else { LookX = Mathf.Sign(LookX); }
-        if (LookY > -0.5 && LookY < 0.5) { LookY = 0; }// else { LookY = Mathf.Sign(LookY); }
+        if (LookX > -0.5 && LookX < 0.5) { LookX = 0; }
+        if (LookY > -0.5 && LookY < 0.5) { LookY = 0; }
 
         float invert = 1.0f; if (invertCameraY) { invert = -1.0f; }
         

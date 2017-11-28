@@ -184,6 +184,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motionBlurMat: {fileID: 2100000, guid: 2456e3f0fa30cca45a304c3e9f950e63, type: 2}
   motionBlurPercentage: 0.15
+  UVOffset: {x: 0, y: 0}
+  screenBuffer:
+  - {fileID: 8400000, guid: d70e489578f4c46419de77cb149d80c1, type: 2}
+  - {fileID: 8400000, guid: 40301b014f70f40459ac044577647c73, type: 2}
   anim: {fileID: 111826654010417316}
 --- !u!114 &114700436210192454
 MonoBehaviour:
@@ -199,6 +203,7 @@ MonoBehaviour:
   combatActorLookup:
   - {fileID: 1839209102296948, guid: 8a161156393cf3a4f8f82b9f486ef63b, type: 2}
   - {fileID: 1666597619868480, guid: 2a31380b025d064418c770f026449dd4, type: 2}
+  - {fileID: 1246199635002084, guid: 32d175d99645d2b49a8074efa30ca324, type: 2}
   skillLookup:
   - {fileID: 1845444785939798, guid: bd401504a424a7a47a6401f8326b9110, type: 2}
   - {fileID: 1079392246225298, guid: 92fd32d08681d084882e9d3148957153, type: 2}

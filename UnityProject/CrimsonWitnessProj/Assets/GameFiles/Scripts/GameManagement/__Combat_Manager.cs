@@ -103,24 +103,26 @@ public class __Combat_Manager : MonoBehaviour {
     {
         // Player Party
         // TODO: Actually spawn the player's party out. For now just spawn three protag test objects
-        for (int i = 0; i < 3; i++)
+        int partyCount = 2; //TODO: This should be replaced with just getting the length of the player's party
+        for (int i = 0; i < 2; i++)
         {
             if (combatActorLookup.Length >= PlayerID)
-                playerParty.Add(Instantiate(combatActorLookup[PlayerID], this.transform.position + new Vector3(-2.5f + (2.5f * i), 0, -5.0f), Quaternion.Euler(0, 0, 0)) as GameObject);
+                playerParty.Add(Instantiate(combatActorLookup[PlayerID], this.transform.position + new Vector3(/*-2.5f + (2.5f * i)*/ (-1.25f * (partyCount - 1)) + (2.5f * i), 0, -4.0f), Quaternion.Euler(0, 0, 0)) as GameObject);
         }
 
         // Enemy Party
-        // TODO: Actually spawn the enemy party. For now just summon 3 Dantes from the devil may cry serieses
-        for (int i = 0; i < 5; i++)
+        __Stored_Enemy_Party enemies = FindObjectOfType<__Stored_Enemy_Party>(); // FindObject is okay here since it's done on the first frame and just looks like a load.
+
+        for (int i = 0; i < enemies.enemyPartyIndices.Length; i++)
         {
             if (combatActorLookup.Length >= DanteID)
             {
-                enemyParty.Add(Instantiate(combatActorLookup[DanteID], this.transform.position + new Vector3(-5.0f + (2.5f * i), 0, 5.0f), Quaternion.Euler(0, 180, 0)) as GameObject);
+                enemyParty.Add(Instantiate(combatActorLookup[enemies.enemyPartyIndices[i]], this.transform.position + new Vector3((-1.25f * (partyCount - 1)) + (2.5f * i), 0, 4.0f), Quaternion.Euler(0, 180, 0)) as GameObject);
                 enemyParty[i].GetComponent<__Combat_Actor_Script>().teamIndex = 1;
             }
         }
 
-        FindObjectOfType<__Combat_Quick_Stats_Manager>().Init();
+        FindObjectOfType<__Combat_Quick_Stats_Manager>().Init(); // FindObject is okay here since it's done on the first frame and just looks like a load. TODO: Probably reference it just to be safe.
 
         sortPartyByAgility();
 
@@ -250,6 +252,7 @@ public class __Combat_Manager : MonoBehaviour {
         }
     }
 
+    // Does an action
     public void DoAction()
     {
         __Combat_Attack_Script act = null;
@@ -266,6 +269,12 @@ public class __Combat_Manager : MonoBehaviour {
         }
         act.User = allChars[turnIndex];
         act.Targets.AddRange(action_Target);
+    }
+
+    // Skips the current turn
+    public void SkipTurn()
+    {
+        advanceCombatState(__Combat_Manager.CombatState.ecs_Resolution);
     }
 
     // Char getters

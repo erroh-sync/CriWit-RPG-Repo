@@ -149,8 +149,6 @@ public class __Combat_Targetting : MonoBehaviour {
                 __Combat_Manager.Instance.action_Target.Add(targets[currentTarget]);
                 __Combat_Manager.Instance.DoAction();
             }
-
-            //Change phase here
         }
 
         // Exiting Back
